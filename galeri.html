@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diskominfo PKL Hub - Galeri Dokumentasi</title>
+    <style>
+        /* ==========================================================================
+           1. ATURAN WARNA RESMI (DESIGN SYSTEM) & RESET GLOBAL
+           ========================================================================== */
+        :root {
+            --primary-blue: #0A369D;   /* Biru Utama Diskominfo */
+            --accent-teal: #00B4D8;    /* Aksen Teal untuk Hover/Tag */
+            --bg-light: #F8F9FA;       /* Latar Belakang Abu-abu Muda */
+            --text-dark: #212529;      /* Warna Teks Utama */
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. NAVIGASI GLOBAL (STICKY HEADER)
+           ========================================================================== */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .navbar a {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background-color: var(--accent-teal);
+            color: var(--white);
+        }
+
+        /* ==========================================================================
+           3. STRUKTUR ALBUM & FOTO GRID
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .album-wrapper {
+            margin-bottom: 4rem;
+        }
+
+        .album-title {
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 0.5rem;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-item {
+            background-color: var(--white);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .photo-box {
+            width: 100%;
+            height: 180px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: 500;
+            font-size: 0.9rem;
+            /* Jika ada foto asli, ganti background-color di atas dengan tag img di HTML */
+        }
+
+        .photo-desc {
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            color: #555;
+            background-color: var(--white);
+            border-top: 1px solid #eee;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Overlay Hover Effect */
+        .photo-item::after {
+            content: '🔍 Perbesar';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 180px;
+            background-color: rgba(10, 54, 157, 0.7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .photo-item:hover::after {
+            opacity: 1;
+        }
+
+        /* ==========================================================================
+           4. INTERAKTIF LIGHTBOX COMPONENT (POP-UP)
+           ========================================================================== */
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            max-width: 80%;
+            max-height: 70%;
+            background-color: #555;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 4px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            aspect-ratio: 16/9;
+            width: 700px;
+        }
+
+        .lightbox-caption {
+            color: #ccc;
+            margin-top: 15px;
+            font-size: 1rem;
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-teal);
+        }
+
+        /* ==========================================================================
+           5. FOOTER GLOBAL
+           ========================================================================== */
+        footer {
+            background-color: #1a1e29;
+            color: #a0a5b5;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; }
+            .lightbox-content { max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER & NAVIGASI GLOBAL -->
+    <header>
+        <div class="logo">💻 Diskominfo PKL Hub</div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="halaman-berita.html">Berita</a></li>
+            <li><a href="alumni.html">Alumni</a></li>
+            <li><a href="galeri.html" class="active">Galeri</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <div class="container">
+        <h1 class="page-title">Galeri Dokumentasi</h1>
+        <p class="page-subtitle">Kumpulan memori visual, dokumentasi kerja, dan keseruan aktivitas PKL di Diskominfo.</p>
+
+        <!-- ALBUM 1: Welcoming -->
+        <div class="album-wrapper">
+            <h2 class="album-title">📁 Album 1: Welcoming & Orientation</h2>
+            <div class="photo-grid">
+                <div class="photo-item" onclick="openLightbox('[ Foto Hari 1 - Pengenalan Kantor ]', 'Hari pertama masuk kerja, orientasi lingkungan kantor bersama Mentor Bapak Budi.')">
+                    <div class="photo-box">[ Foto Hari Pertama ]</div>
+                    <div class="photo-desc">Hari pertama masuk & pengenalan kantor</div>
+                </div>
+                <div class="photo-item" onclick="openLightbox('[ Foto Pembagian Ruang Kerja ]', 'Pengenalan kubikel kerja dan pembagian inventaris laptop dinas.')">
+                    <div class="photo-box">[ Foto Pembagian Ruangan ]</div>
+                    <div class="photo-desc">Pembagian ruang kerja kelompok</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALBUM 2: Serious Mode On -->
+        <div class="album-wrapper">
+            <h2 class="album-title">📁 Album 2: Serious Mode On</h2>
+            <div class="photo-grid">
+                <div class="photo-item" onclick="openLightbox('[ Foto Tim Coding ]', 'Proses kolaborasi ngoding bareng menyusun basis data web hub.')">
+                    <div class="photo-box">[ Foto Aktivitas Ngoding ]</div>
+                    <div class="photo-desc">Proses kolaborasi membuat website</div>
+                </div>
+                <div class="photo-item" onclick="openLightbox('[ Foto Liputan Humas ]', 'Ikut serta mendampingi tim liputan Diskominfo merekam konferensi pers.')">
+                    <div class="photo-box">[ Foto Liputan Media ]</div>
+                    <div class="photo-desc">Membantu proses liputan berita eksternal</div>
+                </div>
+                <div class="photo-item" onclick="openLightbox('[ Foto Rapat Progress ]', 'Rapat koordinasi mingguan memaparkan wireframe halaman depan.')">
+                    <div class="photo-box">[ Foto Rapat Evaluasi ]</div>
+                    <div class="photo-desc">Rapat koordinasi progress bersama mentor</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALBUM 3: Lunch & Fun Time -->
+        <div class="album-wrapper">
+            <h2 class="album-title">📁 Album 3: Lunch & Fun Time</h2>[cite: 2]
+            <div class="photo-grid">
+                <div class="photo-item" onclick="openLightbox('[ Foto Makan Bersama ]', 'Keseruan makan siang bareng mentor merayakan selesainya proyek infografis.')">
+                    <div class="photo-box">[ Foto Makan Siang Bareng ]</div>
+                    <div class="photo-desc">Makan siang bersama merayakan rilis proyek</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALBUM 4: Farewell / Perpisahan -->
+        <div class="album-wrapper">
+            <h2 class="album-title">📁 Album 4: Farewell / Perpisahan</h2>[cite: 2]
+            <div class="photo-grid">
+                <div class="photo-item" onclick="openLightbox('[ Foto Penyerahan Plakat ]', 'Penyerahan plakat tanda terima kasih dari perwakilan sekolah ke pihak Diskominfo.')">
+                    <div class="photo-box">[ Foto Penyerahan Plakat ]</div>
+                    <div class="photo-desc">Penyerahan plakat kenang-kenangan perpisahan</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- WIDGET MODAL LIGHTBOX (TERSEMBUNYI SECARA DEFAULT) -->
+    <div class="lightbox" id="customLightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content" id="lightboxImgPlaceholder">
+            <!-- Gambar / Placeholder akan dimuat di sini secara otomatis -->
+        </div>
+        <div class="lightbox-caption" id="lightboxCaption">
+            <!-- Keterangan teks foto dimasukkan di sini -->
+        </div>
+    </div>
+
+    <!-- FOOTER GLOBAL -->
+    <footer>
+        <p>© 2026 Diskominfo PKL Hub. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.6;">Dibuat dengan 💻 oleh Tim Praktikan Diskominfo</p>
+    </footer>
+
+    <!-- LOGIKA INTERAKTIF JAVASCRIPT POP-UP LIGHTBOX -->
+    <script>
+        const lightbox = document.getElementById('customLightbox');
+        const imgPlaceholder = document.getElementById('lightboxImgPlaceholder');
+        const captionText = document.getElementById('lightboxCaption');
+
+        function openLightbox(imageDummyText, caption) {
+            lightbox.classList.add('active');
+            imgPlaceholder.innerText = imageDummyText; // Memasukkan teks/gambar ke pop-up
+            captionText.innerText = caption;           // Memasukkan teks deskripsi bawah
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+        }
+
+        // Menutup otomatis jika pengguna tidak sengaja mengeklik latar belakang hitam di luar gambar
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+    </script>
+</body>
+</html>

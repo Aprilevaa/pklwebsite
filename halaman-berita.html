@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diskominfo PKL Hub - Berita & Kegiatan</title>
+    <style>
+        /* ==========================================================================
+           1. ATURAN WARNA RESMI (DESIGN SYSTEM) & RESET GLOBAL
+           ========================================================================== */
+        :root {
+            --primary-blue: #0A369D;   /* Biru Utama Diskominfo */
+            --accent-teal: #00B4D8;    /* Aksen Teal untuk Hover/Tag */
+            --bg-light: #F8F9FA;       /* Latar Belakang Abu-abu Muda */
+            --text-dark: #212529;      /* Warna Teks Utama */
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. NAVIGASI GLOBAL (STICKY HEADER)
+           ========================================================================== */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .navbar a {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background-color: var(--accent-teal);
+            color: var(--white);
+        }
+
+        /* ==========================================================================
+           3. AREA UTAMA & FILTER KATEGORI
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigasi Kategori (Filter) */
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .filter-btn {
+            background-color: var(--white);
+            color: var(--text-dark);
+            border: 1px solid #ccc;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        /* ==========================================================================
+           4. GRID DAFTAR BERITA (FEED/BLOG)
+           ========================================================================== */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .news-thumb {
+            width: 100%;
+            height: 220px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .news-tag {
+            background-color: rgba(10, 54, 157, 0.1);
+            color: var(--primary-blue);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .news-excerpt {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn-readmore {
+            color: var(--accent-teal);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+            align-self: flex-start;
+        }
+
+        .btn-readmore:hover {
+            color: var(--primary-blue);
+        }
+
+        /* ==========================================================================
+           5. FOOTER GLOBAL
+           ========================================================================== */
+        footer {
+            background-color: #1a1e29;
+            color: #a0a5b5;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 5rem;
+        }
+
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .filter-container {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">💻 Diskominfo PKL Hub</div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="halaman-berita.html" class="active">Berita</a></li>
+            <li><a href="alumni.html">Alumni</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Kabar & Kegiatan PKL</h1>
+        <p class="page-subtitle">Portal informasi resmi seputar aktivitas harian, proyek harian, dan edukasi praktikan Diskominfo.</p>
+
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterKategori('all')">Semua Konten</button>
+            <button class="filter-btn" onclick="filterKategori('daily')">#DailyUpdate</button>
+            <button class="filter-btn" onclick="filterKategori('project')">#ProjectShowcase</button>
+            <button class="filter-btn" onclick="filterKategori('tips')">#TipsMagang</button>
+        </div>
+
+        <div class="news-grid">
+            
+            <div class="news-card" data-category="project">
+                <div class="news-thumb">[ Foto Slicing Website ]</div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-tag">#ProjectShowcase</span>
+                        <span>14 Juli 2026</span>
+                    </div>
+                    <h3 class="news-title">Penyusunan Struktur Awal File Web Hub PKL Diskominfo</h3>
+                    <p class="news-excerpt">Tim Web Developer berhasil melakukan setup awal repositori kode pemrograman menggunakan HTML dasar dan sistem pewarnaan kustom...</p>
+                    <a href="#" class="btn-readmore">Baca Selengkapnya →</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="daily">
+                <div class="news-thumb">[ Foto Ruang Data Center ]</div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-tag">#DailyUpdate</span>
+                        <span>12 Juli 2026</span>
+                    </div>
+                    <h3 class="news-title">Mengenal Infrastruktur Jaringan di Ruang Server Utama</h3>
+                    <p class="news-excerpt">Dipandu langsung oleh mentor, seluruh anak magang berkesempatan masuk ke Data Center guna mempelajari manajemen server pemerintahan...</p>
+                    <a href="#" class="btn-readmore">Baca Selengkapnya →</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="tips">
+                <div class="news-thumb">[ Foto Ilustrasi Etika Kerja ]</div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-tag">#TipsMagang</span>
+                        <span>10 Juli 2026</span>
+                    </div>
+                    <h3 class="news-title">5 Etika Penting Saat Berkomunikasi di Kantor Pemerintahan</h3>
+                    <p class="news-excerpt">Bagaimana cara menyapa pegawai, mengajukan pertanyaan ke mentor dengan sopan, serta etika berkirim pesan koordinasi tugas...</p>
+                    <a href="#" class="btn-readmore">Baca Selengkapnya →</a>
+                </div>
+            </div>
+
+            <div class="news-card" data-category="daily">
+                <div class="news-thumb">[ Foto Rapat Mingguan ]</div>
+                <div class="news-content">
+                    <div class="news-meta">
+                        <span class="news-tag">#DailyUpdate</span>
+                        <span>08 Juli 2026</span>
+                    </div>
+                    <h3 class="news-title">Evaluasi Mingguan dan Presentasi Progress Individu</h3>
+                    <p class="news-excerpt">Momen seru sekaligus menegangkan saat memaparkan hasil laporan kerja mingguan di hadapan Kepala Seksi Humas dan Informatika...</p>
+                    <a href="#" class="btn-readmore">Baca Selengkapnya →</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Diskominfo PKL Hub. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.6;">Dibuat dengan 💻 oleh Tim Praktikan Diskominfo</p>
+    </footer>
+
+    <script>
+        function filterKategori(kategori) {
+            // 1. Ubah status tombol aktif
+            const tombols = document.querySelectorAll('.filter-btn');
+            tombols.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 2. Saring kartu berita berdasarkan kategori data atributnya
+            const kartus = document.querySelectorAll('.news-card');
+            kartus.forEach(kartu => {
+                if (kategori === 'all' || kartu.getAttribute('data-category') === kategori) {
+                    kartu.style.display = 'flex'; // Tampilkan jika cocok
+                } else {
+                    kartu.style.display = 'none';  // Sembunyikan jika tidak cocok
+                }
+            });
+        }
+    </script>
+</body>
+</html>

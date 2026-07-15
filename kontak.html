@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diskominfo PKL Hub - Kontak & Informasi</title>
+    <style>
+        /* ==========================================================================
+           1. ATURAN WARNA RESMI (DESIGN SYSTEM) & RESET GLOBAL
+           ========================================================================== */
+        :root {
+            --primary-blue: #0A369D;   /* Biru Utama Diskominfo */
+            --accent-teal: #00B4D8;    /* Aksen Teal untuk Hover/Tag */
+            --bg-light: #F8F9FA;       /* Latar Belakang Abu-abu Muda */
+            --text-dark: #212529;      /* Warna Teks Utama */
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ==========================================================================
+           2. NAVIGASI GLOBAL (STICKY HEADER)
+           ========================================================================== */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .navbar a {
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background-color: var(--accent-teal);
+            color: var(--white);
+        }
+
+        /* ==========================================================================
+           3. TATA LETAK DUA KOLOM (CONTACT LAYOUT)
+           ========================================================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .info-card, .form-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-sub-title {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            margin-bottom: 1.2rem;
+            border-left: 4px solid var(--accent-teal);
+            padding-left: 10px;
+        }
+
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .info-item p {
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        /* Map Placeholder */
+        .map-placeholder {
+            width: 100%;
+            height: 220px;
+            background-color: #e2e8f0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-weight: 500;
+            margin-top: 1.5rem;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .btn-submit:hover {
+            background-color: #082b7d;
+        }
+
+        /* ==========================================================================
+           4. AKORDEON FAQ INTERAKTIF
+           ========================================================================== */
+        .faq-section {
+            margin-top: 4rem;
+        }
+
+        .faq-item {
+            background-color: var(--white);
+            margin-bottom: 10px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+
+        .faq-header {
+            background-color: #edf2f7;
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .faq-header:hover {
+            background-color: #e2e8f0;
+        }
+
+        .faq-header::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s;
+            color: var(--primary-blue);
+        }
+
+        .faq-item.active .faq-header::after {
+            transform: rotate(-180deg);
+        }
+
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.5rem;
+            background-color: var(--white);
+        }
+
+        .faq-item.active .faq-body {
+            padding: 1rem 1.5rem;
+        }
+
+        /* ==========================================================================
+           5. FOOTER GLOBAL
+           ========================================================================== */
+        footer {
+            background-color: #1a1e29;
+            color: #a0a5b5;
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 5rem;
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">💻 Diskominfo PKL Hub</div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="halaman-berita.html">Berita</a></li>
+            <li><a href="alumni.html">Alumni</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="kontak.html" class="active">Kontak</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <h1 class="page-title">Kontak & Informasi</h1>
+        <p class="page-subtitle">Hubungi kami atau pelajari alur panduan pengajuan praktik kerja lapangan (PKL) resmi di Diskominfo.</p>
+
+        <div class="contact-grid">
+            
+            <div class="info-card">
+                <h2 class="section-sub-title">Informasi Instansi</h2>
+                
+                <div class="info-item">
+                    <strong>📍 Alamat Kantor</strong>
+                    <p>Dinas Komunikasi dan Informatika (Diskominfo)<br>Gedung Pusat Pemerintahan, Lantai 3<br>Jl. Jend. Sudirman No. 123, Serang, Banten.</p>
+                </div>
+
+                <div class="info-item">
+                    <strong>✉️ Alamat Email Resmi Hub</strong>
+                    <p>pkl-hub@diskominfo.go.id</p>
+                </div>
+
+                <h2 class="section-sub-title" style="margin-top: 2rem;">Alur Pendaftaran PKL</h2>
+                <div class="info-item">
+                    <p>1. Ajukan surat pengantar resmi dari pihak Sekolah/Kampus.</p>
+                    <p>2. Kirim berkas softcopy (Proposal & CV Kelompok) ke alamat email di atas.</p>
+                    <p>3. Tunggu konfirmasi kuota dari tim kehumasan dalam kurun waktu 3-5 hari kerja.</p>
+                </div>
+
+                <div class="map-placeholder">
+                    📍 [ Embed Google Maps Lokasi Diskominfo ]
+                </div>
+            </div>
+
+            <div class="form-card">
+                <h2 class="section-sub-title">Kirim Pertanyaan Cepat</h2>
+                
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" class="form-control" placeholder="Masukkan nama kamu..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Alamat Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="nama@sekolah.sch.id" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Pesan / Pertanyaan</label>
+                        <textarea id="message" class="form-control" placeholder="Tuliskan pertanyaanmu seputar kuota atau aturan magang..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Kirim Pesan Sekarang</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="faq-section">
+            <h2 class="section-sub-title" style="font-size: 1.5rem; margin-bottom: 1.5rem;">Pertanyaan Umum (FAQ)</h2>
+            
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">Apakah praktik di Diskominfo wajib menguasai bahasa pemrograman (coding)?</div>
+                <div class="faq-body">
+                    <p>Tidak wajib. Ruang penempatan magang di Diskominfo sangat luas. Kami menerima siswa/mahasiswa dari lintas jurusan untuk ditempatkan pada divisi Hubungan Masyarakat (Humas) untuk menulis berita, Divisi Multimedia untuk Desain Grafis/Video Editor, serta Kesekretariatan untuk administrasi kantor.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">Bagaimana peraturan seragam pakaian bagi praktikan PKL?</div>
+                <div class="faq-body">
+                    <p>Hari Senin hingga Rabu praktikan diwajibkan menggunakan seragam resmi sekolah masing-masing atau jas almamater kampus. Untuk hari Kamis menggunakan baju Batik bebas yang rapi, dan hari Jumat menggunakan pakaian olahraga kantor atau baju kasual bebas berkerah yang sopan.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header" onclick="toggleFaq(this)">Berapa lama durasi maksimal pelaksanaan magang yang diizinkan?</div>
+                <div class="faq-body">
+                    <p>Durasi standar pelaksanaan praktik kerja lapangan di instansi kami adalah berkisar antara 1 hingga 3 bulan, disesuaikan dengan surat keputusan dan target instruksi dari kurikulum lembaga pendidikan asal kalian.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Diskominfo PKL Hub. All rights reserved.</p>
+        <p style="font-size: 0.8rem; margin-top: 5px; opacity: 0.6;">Dibuat dengan 💻 oleh Tim Praktikan Diskominfo</p>
+    </footer>
+
+    <script>
+        // Fungsi Akordeon Drop-down FAQ
+        function toggleFaq(header) {
+            const item = header.parentElement;
+            const body = item.querySelector('.faq-body');
+            
+            // Toggle kelas aktif pada item akordeon
+            item.classList.toggle('active');
+            
+            if (item.classList.contains('active')) {
+                body.style.maxHeight = body.scrollHeight + "px"; // Membuka dengan animasi tinggi konten
+            } else {
+                body.style.maxHeight = "0"; // Menutup kembali
+            }
+        }
+
+        // Fungsi Simpan / Submit Form Kirim Pesan
+        function handleSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Terima kasih, ${name}! Pesan simulasi kamu berhasil terkirim. Admin hub akan segera merespons.`);
+            document.querySelector('form').reset();
+        }
+    </script>
+</body>
+</html>
