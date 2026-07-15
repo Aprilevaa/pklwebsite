@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,14 @@
            1. ATURAN WARNA RESMI (DESIGN SYSTEM) & RESET GLOBAL
            ========================================================================== */
         :root {
-            --primary-blue: #0A369D;   /* Biru Utama Diskominfo */
-            --accent-teal: #00B4D8;    /* Aksen Teal untuk Hover/Tag */
-            --bg-light: #F8F9FA;       /* Latar Belakang Abu-abu Muda */
-            --text-dark: #212529;      /* Warna Teks Utama */
+            --primary-blue: #0A369D;
+            /* Biru Utama Diskominfo */
+            --accent-teal: #00B4D8;
+            /* Aksen Teal untuk Hover/Tag */
+            --bg-light: #F8F9FA;
+            /* Latar Belakang Abu-abu Muda */
+            --text-dark: #212529;
+            /* Warna Teks Utama */
             --white: #FFFFFF;
         }
 
@@ -47,7 +52,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -68,7 +73,8 @@
             transition: all 0.3s ease;
         }
 
-        .navbar a:hover, .navbar a.active {
+        .navbar a:hover,
+        .navbar a.active {
             background-color: var(--accent-teal);
             color: var(--white);
         }
@@ -97,7 +103,7 @@
             background-color: var(--white);
             padding: 1.5rem;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
             margin-bottom: 3rem;
             display: flex;
             gap: 15px;
@@ -137,14 +143,14 @@
             border-radius: 8px;
             padding: 2rem 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s, box-shadow 0.3s;
             border-bottom: 4px solid transparent;
         }
 
         .alumni-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             border-bottom-color: var(--accent-teal);
         }
 
@@ -240,18 +246,20 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
             .search-filter-bar {
                 flex-direction: column;
             }
         }
     </style>
 </head>
+
 <body>
 
     <header>
         <div class="logo">💻 Diskominfo PKL Hub</div>
         <ul class="navbar">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">Halaman</a></li>
             <li><a href="halaman-berita.html">Berita</a></li>
             <li><a href="alumni.html" class="active">Alumni</a></li>
             <li><a href="galeri.html">Galeri</a></li>
@@ -261,26 +269,29 @@
 
     <div class="container">
         <h1 class="page-title">Direktori Alumni PKL</h1>
-        <p class="page-subtitle">Ruang apresiasi dan jejak langkah bagi siapa saja yang pernah belajar dan berkarya di Diskominfo.</p>
+        <p class="page-subtitle">Ruang apresiasi dan jejak langkah bagi siapa saja yang pernah belajar dan berkarya di
+            Diskominfo.</p>
 
         <div class="search-filter-bar">
-            <input type="text" id="searchName" class="search-input" placeholder="Cari berdasarkan nama alumni..." onkeyup="filterAlumni()">
-            
+            <input type="text" id="searchName" class="search-input" placeholder="Cari berdasarkan nama alumni..."
+                onkeyup="filterAlumni()">
+
             <select id="filterBatch" class="filter-select" onchange="filterAlumni()">
-                <option value="all">Semua Angkatan</option>
+                <option value="all">All Generation</option>
                 <option value="2026-1">Batch 1 (Awal 2026)</option>
                 <option value="2026-2">Batch 2 (Pertengahan 2026)</option>
             </select>
         </div>
 
         <div class="alumni-grid" id="alumniGrid">
-            
+
             <div class="alumni-card" data-batch="2026-1">
                 <div class="avatar-container">👤</div>
                 <h3 class="alumni-name">Ahmad Fauzi</h3>
                 <p class="alumni-school">SMKN 1 Kota Cilegon</p>
                 <span class="alumni-divisi">IT Support</span>
-                <p class="alumni-quote">"PKL di Diskominfo seru banget, dapat banyak ilmu jaringan dan mentornya sangat ramah!"</p>
+                <p class="alumni-quote">"PKL di Diskominfo seru banget, dapat banyak ilmu jaringan dan mentornya sangat
+                    ramah!"</p>
                 <div class="alumni-socials">
                     <a href="#" class="social-icon" title="LinkedIn">in</a>
                     <a href="#" class="social-icon" title="Instagram">ig</a>
@@ -292,7 +303,8 @@
                 <h3 class="alumni-name">Riska Amelia</h3>
                 <p class="alumni-school">Universitas Banten Jaya</p>
                 <span class="alumni-divisi">Humas & News</span>
-                <p class="alumni-quote">"Pengalaman luar biasa belajar menulis berita pemerintahan dan rilis media resmi kantor."</p>
+                <p class="alumni-quote">"Pengalaman luar biasa belajar menulis berita pemerintahan dan rilis media resmi
+                    kantor."</p>
                 <div class="alumni-socials">
                     <a href="#" class="social-icon" title="LinkedIn">in</a>
                     <a href="#" class="social-icon" title="Instagram">ig</a>
@@ -304,7 +316,8 @@
                 <h3 class="alumni-name">Muhammad Daffa</h3>
                 <p class="alumni-school">SMKN 3 Serang</p>
                 <span class="alumni-divisi">Graphic Design</span>
-                <p class="alumni-quote">"Mengasah skill desain infografis untuk konten edukasi publik. Sangat menantang dan bermanfaat!"</p>
+                <p class="alumni-quote">"Mengasah skill desain infografis untuk konten edukasi publik. Sangat menantang
+                    dan bermanfaat!"</p>
                 <div class="alumni-socials">
                     <a href="#" class="social-icon" title="LinkedIn">in</a>
                     <a href="#" class="social-icon" title="Instagram">ig</a>
@@ -316,7 +329,8 @@
                 <h3 class="alumni-name">Siti Aminah</h3>
                 <p class="alumni-school">Universitas Sultan Ageng Tirtayasa</p>
                 <span class="alumni-divisi">Web Developer</span>
-                <p class="alumni-quote">"Dipercaya ikut andil menyusun rancangan layout web portal internal. Proyek portofolio yang berharga!"</p>
+                <p class="alumni-quote">"Dipercaya ikut andil menyusun rancangan layout web portal internal. Proyek
+                    portofolio yang berharga!"</p>
                 <div class="alumni-socials">
                     <a href="#" class="social-icon" title="LinkedIn">in</a>
                     <a href="#" class="social-icon" title="Instagram">ig</a>
@@ -336,7 +350,7 @@
             // Ambil nilai input pencarian dan filter dropdown
             const keyword = document.getElementById('searchName').value.toLowerCase();
             const selectedBatch = document.getElementById('filterBatch').value;
-            
+
             // Ambil semua elemen kartu alumni
             const cards = document.querySelectorAll('.alumni-card');
 
@@ -358,4 +372,5 @@
         }
     </script>
 </body>
+
 </html>

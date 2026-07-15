@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,14 @@
            1. ATURAN WARNA RESMI (DESIGN SYSTEM) & RESET
            ========================================================================== */
         :root {
-            --primary-blue: #0A369D;   /* Biru Utama Diskominfo */
-            --accent-teal: #00B4D8;    /* Aksen Teal untuk Hover/Tag */
-            --bg-light: #F8F9FA;       /* Latar Belakang Abu-abu Muda */
-            --text-dark: #212529;      /* Warna Teks Utama */
+            --primary-blue: #0A369D;
+            /* Biru Utama Diskominfo */
+            --accent-teal: #00B4D8;
+            /* Aksen Teal untuk Hover/Tag */
+            --bg-light: #F8F9FA;
+            /* Latar Belakang Abu-abu Muda */
+            --text-dark: #212529;
+            /* Warna Teks Utama */
             --white: #FFFFFF;
         }
 
@@ -47,7 +52,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -71,7 +76,8 @@
             transition: all 0.3s ease;
         }
 
-        .navbar a:hover, .navbar a.active {
+        .navbar a:hover,
+        .navbar a.active {
             background-color: var(--accent-teal);
             color: var(--white);
         }
@@ -82,7 +88,7 @@
         .hero {
             background: linear-gradient(rgba(10, 54, 157, 0.85), rgba(10, 54, 157, 0.95)), url('assets/images/hero-bg.jpg') no-repeat center center/cover;
             /* Catatan: Ganti url di atas dengan foto bersama tim kalian nanti */
-            background-color: var(--primary-blue); 
+            background-color: var(--primary-blue);
             color: var(--white);
             text-align: center;
             padding: 6rem 1rem;
@@ -166,7 +172,7 @@
             padding: 2rem;
             border-radius: 8px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             border-top: 4px solid var(--accent-teal);
         }
 
@@ -196,7 +202,7 @@
             background-color: var(--bg-light);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             transition: transform 0.3s;
         }
 
@@ -207,7 +213,8 @@
         .news-thumb {
             width: 100%;
             height: 200px;
-            background-color: #ddd; /* Keterangan gambar tiruan sebelum diisi foto asli */
+            background-color: #ddd;
+            /* Keterangan gambar tiruan sebelum diisi foto asli */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -268,12 +275,14 @@
                 flex-direction: column;
                 gap: 15px;
             }
+
             .hero-content h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
+
 <body>
 
     <!-- HEADER & NAVIGASI GLOBAL -->
@@ -302,11 +311,13 @@
     <!-- TENTANG KAMI & STATISTIK -->
     <div class="container">
         <section class="about-section">
-            <h2 class="section-title">Sekilas Tentang Kami</h2>
+            <h2 class="section-title">Tentang Kami</h2>
             <p class="about-text">
-                Kami adalah kelompok praktikan PKL di Dinas Komunikasi dan Informatika (Diskominfo). Website ini dibangun secara mandiri sebagai wujud kontribusi, portofolio hasil proyek, sekaligus mesin waktu bagi siapapun yang pernah belajar dan berkembang di sini.[cite: 2]
+                Kami adalah kelompok praktikan PKL di Dinas Komunikasi dan Informatika (Diskominfo). Website ini
+                dibangun secara mandiri sebagai wujud kontribusi, portofolio hasil proyek, sekaligus mesin waktu bagi
+                siapapun yang pernah belajar dan berkembang di sini.[cite: 2]
             </p>
-            
+
             <!-- STATISTIK INSTAN -->
             <div class="stats-grid">
                 <div class="stat-card">
@@ -329,7 +340,7 @@
     <section class="news-section">
         <div style="max-width: 1200px; margin: 0 auto;">
             <h2 class="section-title">Highlights Berita Terbaru</h2>[cite: 2]
-            
+
             <div class="news-grid">
                 <!-- Kartu Berita 1 -->
                 <div class="news-card">
@@ -337,7 +348,8 @@
                     <div class="news-body">
                         <span class="news-tag">#ProjectShowcase</span>[cite: 2]
                         <h4>Pengembangan Website Portal Informasi Terbaru</h4>
-                        <p>Hari ini tim IT sukses merampungkan penyusunan struktur navigasi dan integrasi database...</p>
+                        <p>Hari ini tim IT sukses merampungkan penyusunan struktur navigasi dan integrasi database...
+                        </p>
                         <a href="berita.html" class="btn-sm">Baca Selengkapnya →</a>[cite: 2]
                     </div>
                 </div>
@@ -348,7 +360,8 @@
                     <div class="news-body">
                         <span class="news-tag">#DailyUpdate</span>[cite: 2]
                         <h4>Kunjungan ke Ruang Server Data Center</h4>
-                        <p>Pengalaman seru para praktikan saat diajak mentor melihat infrastruktur server utama Diskominfo...</p>
+                        <p>Pengalaman seru para praktikan saat diajak mentor melihat infrastruktur server utama
+                            Diskominfo...</p>
                         <a href="berita.html" class="btn-sm">Baca Selengkapnya →</a>[cite: 2]
                     </div>
                 </div>
@@ -359,7 +372,8 @@
                     <div class="news-body">
                         <span class="news-tag">#TipsMagang</span>[cite: 2]
                         <h4>Tips Beradaptasi Cepat di Lingkungan Kerja</h4>
-                        <p>Edukasi singkat mengenai etika berkomunikasi dengan mentor dan pegawai pemerintahan saat PKL...</p>
+                        <p>Edukasi singkat mengenai etika berkomunikasi dengan mentor dan pegawai pemerintahan saat
+                            PKL...</p>
                         <a href="berita.html" class="btn-sm">Baca Selengkapnya →</a>[cite: 2]
                     </div>
                 </div>
@@ -374,4 +388,5 @@
     </footer>
 
 </body>
+
 </html>
